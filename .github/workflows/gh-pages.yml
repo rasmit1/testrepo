@@ -11,13 +11,13 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: peaceiris/checkout@v4
+        uses: actions/checkout@v4
 	with:
 	  submodules: True
 	  fetch-depth: 0
 
       - name: Setup Hugo
-        uses: peaceiris/setup-node@v4
+        uses:actions/setup-node@v4
         with:
           hugo-version: 'latest' # Specify your desired hugo versioa
 
@@ -26,7 +26,7 @@ jobs:
         run:  hugo --minify
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+        uses: actions/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
