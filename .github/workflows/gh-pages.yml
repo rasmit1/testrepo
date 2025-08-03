@@ -1,0 +1,34 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # Or your default branch like 'master'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: peaceiris/checkout@v4
+	with:
+	  submodules: True
+	  fetch-depth: 0
+
+      - name: Setup Hugo
+        uses: peaceiris/setup-node@v4
+        with:
+          hugo-version: 'latest' # Specify your desired hugo versioa
+
+
+      - name: Build static site 
+        run:  hugo --minify
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          # Optional: Specify a custom domain if needed
+          # cname: example.com
